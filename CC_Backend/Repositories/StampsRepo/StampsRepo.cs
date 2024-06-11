@@ -22,7 +22,9 @@ namespace CC_Backend.Repositories.StampsRepo
         {
             var result = await _context.Users
                 .Include(u => u.StampsCollected)
-                    .ThenInclude(u => u.Stamp)
+                    .ThenInclude(sc => sc.Geodata)
+                .Include(u => u.StampsCollected)
+                    .ThenInclude(sc => sc.Stamp)
                 .Where(u => u.Id == userId)
                 .SelectMany(u => u.StampsCollected)
                 .ToListAsync();

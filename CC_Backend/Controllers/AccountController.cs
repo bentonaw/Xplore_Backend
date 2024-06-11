@@ -16,6 +16,7 @@ using CC_Backend.Repositories.UserRepo;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using CC_Backend.Services;
 using FluentValidation;
+using Newtonsoft.Json.Linq;
 
 namespace CC_Backend.Controllers
 {
@@ -141,7 +142,13 @@ namespace CC_Backend.Controllers
             // Logs in the user and generates a JWT token if a user matching the Google mail is found.
             if (user != null)
             {
-                return Ok(await _accountService.SignInExistingUser(user));
+                var loginResult = await _accountService.SignInExistingUser(user);
+                var redirectUri = new UriBuilder("https://johantran02.github.io/chas-challenge/signin")
+                //var redirectUri = new UriBuilder("http://localhost:3000/signin")
+                {
+                    Query = $"token={loginResult.User.AccessToken}"
+                };
+                return Redirect(redirectUri.ToString());
             }
 
             // If a user couldn't be found, a new one is created and then signed in.
@@ -150,7 +157,12 @@ namespace CC_Backend.Controllers
                 var loginResult = await _accountService.RegisterAndSignInNewUser(email, displayName);
                 if (loginResult != null)
                 {
-                    return Ok(loginResult);
+                    var redirectUri = new UriBuilder("https://johantran02.github.io/chas-challenge/signin")
+                    //var redirectUri = new UriBuilder("http://localhost:3000/signin")
+                    {
+                        Query = $"token={loginResult.User.AccessToken}"
+                    };
+                    return Redirect(redirectUri.ToString());
                 }
                 return BadRequest("Failed to create a new user account.");
             }
