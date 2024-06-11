@@ -130,6 +130,7 @@ namespace CC_Backend
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IStampHandler, StampHandler>();
             services.AddScoped<ICommentRepo, CommentRepo>();
+            services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ILikeRepo, LikeRepo>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IGeodataRepo, GeodataRepo>();
@@ -141,7 +142,6 @@ namespace CC_Backend
             });
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ILogger, Logger<AccountService>>();
-            services.AddScoped<ISearchUserService, SearchUserService>();
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

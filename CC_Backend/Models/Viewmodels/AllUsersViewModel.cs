@@ -1,6 +1,6 @@
 ﻿namespace CC_Backend.Models.Viewmodels
 {
-    public class GetAllUsersViewModel
+    public class AllUsersViewModel
     {
         public string DisplayName { get; set; }
     }

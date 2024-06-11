@@ -2,7 +2,7 @@
 
 namespace CC_Backend.Models.Viewmodels
 {
-    public class GetUserProfileViewmodel
+    public class UserProfileViewmodel
     {
         public string DisplayName { get; set; }
         public byte[]? ProfilePicture { get; set; }
